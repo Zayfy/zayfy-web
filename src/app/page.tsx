@@ -12,11 +12,14 @@ export default function Home() {
     <>
       <Header />
       <main id="contenido">
-        <Hero />
-        <Services />
-        <About />
-        <WhyZayfy />
-        <Process />
+        {/* Capa opaca: cubre a Contact, que queda pegado bajo ella hasta que se revela */}
+        <div className="relative z-10 bg-bg-base shadow-[0_40px_80px_-10px_rgb(0_0_0/0.8)]">
+          <Hero />
+          <Services />
+          <About />
+          <WhyZayfy />
+          <Process />
+        </div>
         <Contact />
       </main>
       <Footer />

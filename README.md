@@ -62,7 +62,7 @@ Además hay una ruta legal, `/privacidad`, hoy como borrador.
 | Framework | [Next.js](https://nextjs.org) 16 (App Router) con React 19 |
 | Lenguaje | TypeScript |
 | Estilos | Tailwind CSS 4, con los tokens de marca definidos en CSS |
-| Animación | [Motion](https://motion.dev) (antes Framer Motion) |
+| Animación | [Motion](https://motion.dev) (antes Framer Motion) para entradas por scroll; [GSAP](https://gsap.com) con ScrollTrigger para el cierre tipo cortina y los botones magnéticos |
 | Iconos | [Lucide](https://lucide.dev) |
 | Fuentes | Sora (títulos) e Inter (texto), autoalojadas con `next/font` |
 | Calidad | ESLint y TypeScript en modo estricto |
@@ -85,7 +85,7 @@ Abre [http://localhost:3000](http://localhost:3000).
 |---|---|
 | `npm run dev` | Servidor de desarrollo con recarga en caliente |
 | `npm run build` | Build de producción |
-| `npm run start` | Sirve el build de producción |
+| `npm run start` | Sirve el build de producción. Como el proyecto usa `output: "standalone"`, Next avisa que lo recomendado es `node .next/standalone/server.js` (es lo que usará Docker en la Etapa 4) |
 | `npm run lint` | Revisa el código con ESLint |
 | `npx tsc --noEmit` | Revisa los tipos sin generar archivos |
 | `node scripts/process-brand-assets.mjs` | Regenera los assets de marca (ver [Assets de marca](#assets-de-marca)) |
@@ -160,6 +160,9 @@ El gradiente de marca va de cian a azul, violeta y magenta. El azul y el violeta
 - Enlace "Saltar al contenido", foco visible y navegación por teclado.
 - El panel de detalle de servicios usa `<dialog>` nativo (cierra con Escape y devuelve el foco).
 - Las animaciones usan solo `transform` y `opacity`. Las partículas no se activan en móvil y se pausan cuando salen de pantalla.
+- La sección de contacto se revela como una cortina solo en pantallas de al menos 1024 × 780 px: queda pegada al borde inferior (`position: sticky`) bajo las secciones anteriores, que forman una capa opaca en `page.tsx`. Ocupa su propio espacio, así que el pie viene después sin taparla. En móvil o pantallas bajas fluye como una sección normal. Si el foco por teclado entra en ella antes de revelarse, la página se desplaza para mostrarla completa.
+- El ancla `#contacto` es un marcador sin altura justo antes de la sección. El menú calcula la sección activa con la posición del scroll.
+- Los botones magnéticos solo actúan con puntero preciso y sin movimiento reducido. GSAP se importa de forma dinámica.
 
 El razonamiento completo está en [`docs/etapa-1-arquitectura-y-diseno.md`](docs/etapa-1-arquitectura-y-diseno.md).
 

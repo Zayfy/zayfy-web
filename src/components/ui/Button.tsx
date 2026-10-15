@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 type Variant = "primary" | "secondary";
 
@@ -12,11 +12,11 @@ const variants: Record<Variant, string> = {
     "glass text-white hover:border-brand-cyan/60 hover:bg-white/10 hover:shadow-[0_0_28px_rgb(0_223_255/0.22)]",
 };
 
-type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+type LinkProps = ComponentProps<"a"> & {
   variant?: Variant;
   children: ReactNode;
 };
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = ComponentProps<"button"> & {
   variant?: Variant;
   children: ReactNode;
 };

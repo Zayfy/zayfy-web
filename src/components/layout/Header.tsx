@@ -22,17 +22,30 @@ export function Header() {
     const sections = nav
       .map((n) => document.getElementById(n.id))
       .filter((el): el is HTMLElement => el !== null);
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-35% 0px -55% 0px", threshold: [0, 0.2, 0.5] },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
+    let raf = 0;
+
+    // Activa la última sección cuyo borde superior ya pasó el 40 % de la pantalla
+    const update = () => {
+      raf = 0;
+      const line = window.innerHeight * 0.4;
+      let current = nav[0].id;
+      for (const s of sections) {
+        if (s.getBoundingClientRect().top <= line) current = s.id;
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {

@@ -132,3 +132,123 @@ h3 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Sección de contacto cinematográfica (Contact)                       */
+/* En pantallas amplias queda pegada al borde inferior, oculta bajo las */
+/* secciones anteriores, y se revela como una cortina. Ocupa su propio  */
+/* espacio, así que el pie viene después sin taparla. En móvil fluye.   */
+/* ------------------------------------------------------------------ */
+.curtain {
+  position: relative;
+}
+.curtain-inner {
+  position: relative;
+  display: flex;
+  min-height: 36rem;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  background: var(--color-bg-base);
+}
+@media (min-width: 1024px) and (min-height: 780px) {
+  .curtain {
+    position: sticky;
+    bottom: 0;
+    height: 100dvh;
+  }
+  .curtain-inner {
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+.cin-aurora {
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--color-brand-violet) 32%, transparent) 0%,
+    color-mix(in srgb, var(--color-brand-blue) 24%, transparent) 38%,
+    transparent 70%
+  );
+}
+
+.cin-grid {
+  background-size: 60px 60px;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
+}
+
+.cin-giant {
+  font-family: var(--font-display);
+  font-size: 26vw;
+  font-weight: 800;
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.07);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.12) 0%, transparent 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.cin-pill,
+.cin-pill-flat {
+  background: linear-gradient(145deg, rgb(255 255 255 / 0.06) 0%, rgb(255 255 255 / 0.015) 100%);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  box-shadow:
+    0 10px 30px -10px rgb(0 0 0 / 0.5),
+    inset 0 1px 1px rgb(255 255 255 / 0.1),
+    inset 0 -1px 2px rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition:
+    background 0.4s var(--ease-out-expo),
+    border-color 0.4s var(--ease-out-expo),
+    box-shadow 0.4s var(--ease-out-expo),
+    color 0.3s;
+}
+.cin-pill:hover,
+.cin-pill:focus-visible {
+  background: linear-gradient(145deg, rgb(255 255 255 / 0.12) 0%, rgb(255 255 255 / 0.03) 100%);
+  border-color: color-mix(in srgb, var(--color-brand-cyan) 55%, transparent);
+  box-shadow:
+    0 20px 40px -10px rgb(0 0 0 / 0.7),
+    0 0 32px rgb(0 213 253 / 0.18),
+    inset 0 1px 1px rgb(255 255 255 / 0.2);
+  color: #fff;
+}
+
+.animate-cin-breathe {
+  animation: cin-breathe 8s ease-in-out infinite alternate;
+}
+.animate-cin-marquee {
+  animation: cin-marquee 40s linear infinite;
+}
+@keyframes cin-breathe {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
+}
+@keyframes cin-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cin-breathe,
+  .animate-cin-marquee {
+    animation: none !important;
+  }
+}
