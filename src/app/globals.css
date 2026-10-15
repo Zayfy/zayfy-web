@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-base: #050509;
+  --color-bg-raised: #080d25;
+  --color-brand-cyan: #00d5fd;
+  --color-brand-azure: #0084fd;
+  --color-brand-blue: #1430ff;
+  --color-brand-violet: #861eee;
+  --color-brand-violet-soft: #b04dff;
+  --color-brand-magenta: #f10dfc;
+  --color-ink: #ffffff;
+  --color-ink-soft: rgb(255 255 255 / 0.74);
+  --color-ink-muted: rgb(255 255 255 / 0.6);
+  --color-glass: rgb(255 255 255 / 0.05);
+  --color-glass-border: rgb(255 255 255 / 0.1);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-orbit: orbit 60s linear infinite;
+  --animate-orbit-reverse: orbit 90s linear infinite reverse;
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-gradient: gradient-shift 6s ease infinite;
+
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+  @keyframes gradient-shift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+}
+
+:root {
+  /* Muestreado del logotipo original: cian > azul > azul profundo > violeta > magenta */
+  --brand-gradient: linear-gradient(
+    110deg,
+    #00d5fd 0%,
+    #0084fd 28%,
+    #3a3cff 52%,
+    #9a2bff 76%,
+    #f10dfc 100%
+  );
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--color-bg-base);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+::selection {
+  background: rgb(120 53 255 / 0.5);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@utility glass {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@utility text-gradient {
+  background-image: var(--brand-gradient);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-brand-gradient {
+  background-image: var(--brand-gradient);
+  background-size: 200% 200%;
+}
+
+@utility section-pad {
+  padding-block: 4rem;
+  @media (min-width: 1024px) {
+    padding-block: 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
